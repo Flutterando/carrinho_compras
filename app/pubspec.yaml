@@ -9,9 +9,19 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^0.1.2
+  bloc_pattern: ^1.5.2
+  dio: ^2.1.2
+  rxdart: ^0.21.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: any
+
 flutter:
   uses-material-design: true
+
+flutter_icons:
+  android: "ic_launcher" 
+  ios: true
+  image_path: "assets/icon/flutterando_icon.png"
