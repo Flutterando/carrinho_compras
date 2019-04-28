@@ -12,6 +12,7 @@ dependencies:
   bloc_pattern: ^1.5.2
   dio: ^2.1.2
   rxdart: ^0.21.0
+  font_awesome_flutter: ^8.4.0
 
 dev_dependencies:
   flutter_test:
