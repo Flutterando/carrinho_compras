@@ -1,14 +1,17 @@
-import 'package:app/src/home/home_bloc.dart';
 import 'package:app/src/shared/models/produto.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
-class HomePage extends StatefulWidget {
+import 'produtos_bloc.dart';
+import 'produto_view/produto_view_screen.dart';
+
+class ProdutosPage extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _ProdutosPageState createState() => _ProdutosPageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  final HomeBloc _bloc = HomeBloc();
+class _ProdutosPageState extends State<ProdutosPage> {
+  final _bloc = ProdutosBloc();
 
   @override
   void dispose() {
@@ -16,12 +19,20 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  String _limitText(String text){
-    return text.substring(0, 30)+"...";
+  String _limitText(String text) {
+    return text.substring(0, 30) + "...";
   }
 
   Widget _item(Produto produto) {
     return ListTile(
+      onTap: () {
+        Navigator.push(
+          context,
+          CupertinoPageRoute(builder: (context) {
+            return ProdutoViewScreen(produto: produto);
+          }),
+        );
+      },
       leading: Container(
           width: 40,
           height: 40,
@@ -34,7 +45,7 @@ class _HomePageState extends State<HomePage> {
           )),
       title: Text(produto.title),
       subtitle: Text(_limitText(produto.description)),
-      trailing:  Text("\$ ${produto.price}"),
+      trailing: Text("\$ ${produto.price}"),
     );
   }
 
@@ -82,10 +93,11 @@ class _HomePageState extends State<HomePage> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        //tela de pedidos
-      },
-      child: Icon(Icons.add_shopping_cart),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          //tela de pedidos
+        },
+        child: Icon(Icons.add_shopping_cart),
       ),
     );
   }
