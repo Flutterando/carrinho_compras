@@ -11,7 +11,11 @@ class CarrinhoBloc extends BlocBase {
   Observable<int> get totalCarrinho => _totalCarrinhoController.stream;
 
   var _addItemCarrinhoController = BehaviorSubject<Produto>();
+  Sink<Produto> get addItemCarrinho => _addItemCarrinhoController.sink;
+
   var _removeItemCarrinhoController = BehaviorSubject<Produto>();
+  Sink<Produto> get removeItemCarrinho => _removeItemCarrinhoController.sink;
+
   var _totalCarrinhoController = BehaviorSubject<int>();
 
   _handleAddItemCarrinho(Produto produto) {

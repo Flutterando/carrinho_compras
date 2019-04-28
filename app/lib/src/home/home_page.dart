@@ -1,3 +1,4 @@
+import 'package:app/src/carrinho/carrinho_bloc.dart';
 import 'package:app/src/home/home_bloc.dart';
 import 'package:app/src/shared/models/produto.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final HomeBloc _bloc = HomeBloc();
+  final CarrinhoBloc carrinhoBloc = CarrinhoBloc();
 
   @override
   void dispose() {
@@ -16,25 +18,30 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  String _limitText(String text){
-    return text.substring(0, 30)+"...";
+  String _limitText(String text) {
+    return text.substring(0, 30) + "...";
   }
 
   Widget _item(Produto produto) {
-    return ListTile(
-      leading: Container(
-          width: 40,
-          height: 40,
-          child: Hero(
-            child: Image.network(
-              produto.image,
-              fit: BoxFit.cover,
-            ),
-            tag: produto.id,
-          )),
-      title: Text(produto.title),
-      subtitle: Text(_limitText(produto.description)),
-      trailing:  Text("\$ ${produto.price}"),
+    return InkWell(
+      onTap: () {
+        carrinhoBloc.addItemCarrinho.add(produto);
+      },
+      child: ListTile(
+        leading: Container(
+            width: 40,
+            height: 40,
+            child: Hero(
+              child: Image.network(
+                produto.image,
+                fit: BoxFit.cover,
+              ),
+              tag: produto.id,
+            )),
+        title: Text(produto.title),
+        subtitle: Text(_limitText(produto.description)),
+        trailing: Text("\$ ${produto.price}"),
+      ),
     );
   }
 
@@ -82,10 +89,11 @@ class _HomePageState extends State<HomePage> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        //tela de pedidos
-      },
-      child: Icon(Icons.add_shopping_cart),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          //tela de pedidos
+        },
+        child: Icon(Icons.add_shopping_cart),
       ),
     );
   }
