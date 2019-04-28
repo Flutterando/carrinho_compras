@@ -1,3 +1,4 @@
+import 'package:app/src/finalizar_pedido/componentes/progressbar_widget.dart';
 import 'package:app/src/finalizar_pedido/componentes/texto_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,11 @@ class _FinalizarPedidoPageState extends State<FinalizarPedidoPage> {
         title: Text("Finalizar Pedido"),
         centerTitle: true,
       ),
-      body: Container(
+      body: ProgressBarWidget()
+      
+      
+      /*
+      Container(
         padding: EdgeInsets.all(20),
         child: Center(
           child: Column(
@@ -26,24 +31,8 @@ class _FinalizarPedidoPageState extends State<FinalizarPedidoPage> {
             ],
           ),
         )
-        /*
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Container(
-                child: Center(
-              child: Container(child: Column(
-                children: <Widget>[
-                  Text("Nº do Pedido: 123"),
-
-
-                ],
-              )),
-            ))
-          ],
-        ),
-        */
       ),
+      */
     );
   }
 }
