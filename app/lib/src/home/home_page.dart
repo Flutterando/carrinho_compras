@@ -1,6 +1,7 @@
 import 'package:app/src/carrinho/carrinho_bloc.dart';
 import 'package:app/src/home/home_bloc.dart';
 import 'package:app/src/shared/models/produto.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,7 +11,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final HomeBloc _bloc = HomeBloc();
-  final CarrinhoBloc carrinhoBloc = CarrinhoBloc();
+  CarrinhoBloc carrinhoBloc;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    carrinhoBloc = BlocProviderList.of<CarrinhoBloc>(context);
+  }
 
   @override
   void dispose() {
@@ -90,10 +97,41 @@ class _HomePageState extends State<HomePage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blueAccent,
         onPressed: () {
           //tela de pedidos
         },
-        child: Icon(Icons.add_shopping_cart),
+        child: Container(
+          child: Stack(
+            children: <Widget>[
+              Center(
+                child: CircleAvatar(
+                  backgroundColor: Colors.blueAccent,
+                  child: Icon(
+                    Icons.add_shopping_cart,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              CircleAvatar(
+                backgroundColor: Colors.redAccent,
+                maxRadius: 10,
+                child: StreamBuilder<int>(
+                    stream: carrinhoBloc.totalCarrinho,
+                    builder: (context, snapshot) {
+                      return Text(
+                        "${snapshot.data ?? 0}",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      );
+                    }),
+              ),
+              SizedBox(
+                width: 50,
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
