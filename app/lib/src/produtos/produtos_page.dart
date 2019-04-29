@@ -1,9 +1,13 @@
+import 'package:app/src/carrinho/carrinho_bloc.dart';
 import 'package:app/src/shared/models/produto.dart';
+import 'package:app/src/shared/widgets/loading_widget.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'produtos_bloc.dart';
 import 'produto_view/produto_view_screen.dart';
+import '../carrinho/carrinho_page.dart';
 
 class ProdutosPage extends StatefulWidget {
   @override
@@ -12,6 +16,14 @@ class ProdutosPage extends StatefulWidget {
 
 class _ProdutosPageState extends State<ProdutosPage> {
   final _bloc = ProdutosBloc();
+
+  CarrinhoBloc carrinhoBloc;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    carrinhoBloc = BlocProviderList.of<CarrinhoBloc>(context);
+  }
 
   @override
   void dispose() {
@@ -73,12 +85,6 @@ class _ProdutosPageState extends State<ProdutosPage> {
     );
   }
 
-  Widget _loadingScreen() {
-    return Center(
-      child: CircularProgressIndicator(),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,7 +95,7 @@ class _ProdutosPageState extends State<ProdutosPage> {
         stream: _bloc.listOut,
         builder: (context, snapshot) {
           if (snapshot.hasError) return _errorDialog(snapshot.error);
-          if (!snapshot.hasData) return _loadingScreen();
+          if (!snapshot.hasData) return LoadingWidget();
 
           List<Produto> produtos = snapshot.data;
           return ListView.builder(
@@ -100,20 +106,47 @@ class _ProdutosPageState extends State<ProdutosPage> {
           );
         },
       ),
-      floatingActionButton: StreamBuilder<List<Produto>>(
-        stream: _bloc.listOut,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return FloatingActionButton(
-              onPressed: () {
-                //tela de pedidos
-              },
-              child: Icon(Icons.add_shopping_cart),
-            );
-          } else {
-            return Container();
-          }
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blueAccent,
+        onPressed: () {
+          Navigator.push(
+            context,
+            CupertinoPageRoute(
+              builder: (context) => CarrinhoPage(),
+            ),
+          );
         },
+        child: Container(
+          child: Stack(
+            children: <Widget>[
+              Center(
+                child: CircleAvatar(
+                  backgroundColor: Colors.blueAccent,
+                  child: Icon(
+                    Icons.add_shopping_cart,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              CircleAvatar(
+                backgroundColor: Colors.redAccent,
+                maxRadius: 10,
+                child: StreamBuilder<int>(
+                    stream: carrinhoBloc.totalCarrinho,
+                    builder: (context, snapshot) {
+                      return Text(
+                        "${snapshot.data ?? 0}",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      );
+                    }),
+              ),
+              SizedBox(
+                width: 50,
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
