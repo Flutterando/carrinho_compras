@@ -1,4 +1,6 @@
+import 'package:app/src/carrinho/carrinho_bloc.dart';
 import 'package:app/src/shared/models/produto.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -12,6 +14,14 @@ class ProdutosPage extends StatefulWidget {
 
 class _ProdutosPageState extends State<ProdutosPage> {
   final _bloc = ProdutosBloc();
+
+  CarrinhoBloc carrinhoBloc;
+
+  @override
+  void didChangeDependencies() {
+    carrinhoBloc = BlocProviderList.of<CarrinhoBloc>(context);
+    super.didChangeDependencies();
+  }
 
   @override
   void dispose() {
@@ -94,11 +104,38 @@ class _ProdutosPageState extends State<ProdutosPage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          //tela de pedidos
-        },
-        child: Icon(Icons.add_shopping_cart),
-      ),
+          onPressed: () {
+            //tela de pedidos
+          },
+          child: Container(
+            child: Stack(
+              children: <Widget>[
+                Align(
+                  alignment: Alignment.center,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.blueAccent,
+                    child: Icon(Icons.add_shopping_cart),
+                  ),
+                ),
+                CircleAvatar(
+                  backgroundColor: Colors.redAccent,
+                  maxRadius: 10,
+                  child: StreamBuilder<int>(
+                      stream: carrinhoBloc.totalCarrinho,
+                      builder: (context, snapshot) {
+                        return Text(
+                          "${snapshot.data ?? 0}",
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        );
+                      }),
+                ),
+                SizedBox(
+                  width: 50,
+                )
+              ],
+            ),
+          )),
     );
   }
 }

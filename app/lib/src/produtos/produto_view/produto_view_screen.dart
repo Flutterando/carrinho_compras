@@ -1,4 +1,6 @@
+import 'package:app/src/carrinho/carrinho_bloc.dart';
 import 'package:app/src/shared/models/produto.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -13,8 +15,16 @@ class ProdutoViewScreen extends StatefulWidget {
 
 class _ProdutoViewScreenState extends State<ProdutoViewScreen> {
   final Produto produto;
-
   _ProdutoViewScreenState(this.produto);
+
+  CarrinhoBloc carrinhoBloc;
+
+  @override
+  void didChangeDependencies() {
+    carrinhoBloc = BlocProviderList.of<CarrinhoBloc>(context);
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -24,7 +34,10 @@ class _ProdutoViewScreenState extends State<ProdutoViewScreen> {
         title: Text(produto.title),
         actions: <Widget>[
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              carrinhoBloc.addItemCarrinho.add(produto);
+              Navigator.pop(context);
+            },
             icon: Icon(FontAwesomeIcons.check),
           )
         ],
