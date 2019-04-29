@@ -1,9 +1,11 @@
 import 'package:app/src/shared/models/produto.dart';
+import 'package:app/src/shared/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'produtos_bloc.dart';
 import 'produto_view/produto_view_screen.dart';
+import '../carrinho/carrinho_page.dart';
 
 class ProdutosPage extends StatefulWidget {
   @override
@@ -66,12 +68,6 @@ class _ProdutosPageState extends State<ProdutosPage> {
     );
   }
 
-  Widget _loadingScreen() {
-    return Center(
-      child: CircularProgressIndicator(),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,7 +78,7 @@ class _ProdutosPageState extends State<ProdutosPage> {
         stream: _bloc.listOut,
         builder: (context, snapshot) {
           if (snapshot.hasError) return _erroScreen(snapshot.error);
-          if (!snapshot.hasData) return _loadingScreen();
+          if (!snapshot.hasData) return LoadingWidget();
 
           List<Produto> produtos = snapshot.data;
           return ListView.builder(
@@ -96,6 +92,12 @@ class _ProdutosPageState extends State<ProdutosPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           //tela de pedidos
+          Navigator.push(
+            context,
+            CupertinoPageRoute(
+              builder: (context) => CarrinhoPage(),
+            ),
+          );
         },
         child: Icon(Icons.add_shopping_cart),
       ),
