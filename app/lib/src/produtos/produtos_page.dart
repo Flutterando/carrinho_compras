@@ -102,7 +102,6 @@ class _ProdutosPageState extends State<ProdutosPage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blueAccent,
         onPressed: () {
-          //tela de pedidos
           Navigator.push(
             context,
             CupertinoPageRoute(
