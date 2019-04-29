@@ -1,5 +1,7 @@
+import 'package:app/src/carrinho/carrinho_bloc.dart';
 import 'package:app/src/shared/models/produto.dart';
 import 'package:app/src/shared/widgets/loading_widget.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -14,6 +16,14 @@ class ProdutosPage extends StatefulWidget {
 
 class _ProdutosPageState extends State<ProdutosPage> {
   final _bloc = ProdutosBloc();
+
+  CarrinhoBloc carrinhoBloc;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    carrinhoBloc = BlocProviderList.of<CarrinhoBloc>(context);
+  }
 
   @override
   void dispose() {
@@ -90,6 +100,7 @@ class _ProdutosPageState extends State<ProdutosPage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blueAccent,
         onPressed: () {
           //tela de pedidos
           Navigator.push(
@@ -99,7 +110,37 @@ class _ProdutosPageState extends State<ProdutosPage> {
             ),
           );
         },
-        child: Icon(Icons.add_shopping_cart),
+        child: Container(
+          child: Stack(
+            children: <Widget>[
+              Center(
+                child: CircleAvatar(
+                  backgroundColor: Colors.blueAccent,
+                  child: Icon(
+                    Icons.add_shopping_cart,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              CircleAvatar(
+                backgroundColor: Colors.redAccent,
+                maxRadius: 10,
+                child: StreamBuilder<int>(
+                    stream: carrinhoBloc.totalCarrinho,
+                    builder: (context, snapshot) {
+                      return Text(
+                        "${snapshot.data ?? 0}",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      );
+                    }),
+              ),
+              SizedBox(
+                width: 50,
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
