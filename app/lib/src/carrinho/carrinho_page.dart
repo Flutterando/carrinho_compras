@@ -1,3 +1,4 @@
+import 'package:app/src/finalizar_pedido/finalizar_pedido_page.dart';
 import 'package:app/src/produtos/produto_view/produto_view_screen.dart';
 import 'package:app/src/shared/widgets/loading_widget.dart';
 import 'package:app/src/shared/helpers/mask.dart' as mask;
@@ -47,8 +48,13 @@ class _CarrinhoPageState extends State<CarrinhoPage> {
                           child: Text("Finalizar compra"),
                           color: Theme.of(context).accentColor,
                           textColor: Colors.white,
-                          onPressed: (){
-                            //Navegar para tela de checkout
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => FinalizarPedidoPage(),
+                              ),
+                            );
                           },
                         ),
                       ),
