@@ -5,6 +5,11 @@ import 'package:rxdart/rxdart.dart';
 class CarrinhoBloc extends BlocBase {
   List<Produto> _listaProdutos;
 
+  trucateList(){
+    _listaProdutos.clear();
+    _produtosCarrinhoController.add([]);
+  }
+
   var _produtosCarrinhoController = BehaviorSubject.seeded(<Produto>[]);
   Observable<List<Produto>> get produtosCarrinho => _produtosCarrinhoController.stream;
 
