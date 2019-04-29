@@ -1,6 +1,11 @@
+import 'package:app/src/carrinho/carrinho_page.dart';
 import 'package:app/src/shared/models/produto.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../carrinho/carrinho_bloc.dart';
 
 class ProdutoViewScreen extends StatefulWidget {
   final Produto produto;
@@ -13,6 +18,9 @@ class ProdutoViewScreen extends StatefulWidget {
 
 class _ProdutoViewScreenState extends State<ProdutoViewScreen> {
   final Produto produto;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  CarrinhoBloc get carrinhoBloc => BlocProviderList.of<CarrinhoBloc>(context);
 
   _ProdutoViewScreenState(this.produto);
   @override
@@ -20,11 +28,31 @@ class _ProdutoViewScreenState extends State<ProdutoViewScreen> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         title: Text(produto.title),
         actions: <Widget>[
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              carrinhoBloc.addItemCarrinho.add(widget.produto);
+              scaffoldKey.currentState.showSnackBar(
+                SnackBar(
+                  content: Text("Item adicionado ao carrinho!"),
+                  action: SnackBarAction(
+                    textColor: Colors.white,
+                    label: "Ver",
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) => CarrinhoPage(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              );
+            },
             icon: Icon(FontAwesomeIcons.check),
           )
         ],
