@@ -49,20 +49,27 @@ class _ProdutosPageState extends State<ProdutosPage> {
     );
   }
 
-  Widget _erroScreen(String error) {
-    return GestureDetector(
-      onTap: _bloc.refreshList,
-      child: Center(
-        child: Column(
+  Widget _errorDialog(Object error) {
+    return Stack(
+      children: <Widget>[
+        Container(
+          color: Colors.black26,
+        ),
+        SimpleDialog(
           children: <Widget>[
             Icon(Icons.error_outline),
+            SizedBox(height: 20),
+            Text(error, textAlign: TextAlign.center),
             Container(
-              height: 20,
-            ),
-            Text(error),
+              margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
+              child: RaisedButton(
+                child: Text("Recarregar"),
+                onPressed: _bloc.refreshList,
+              ),
+            )
           ],
         ),
-      ),
+      ],
     );
   }
 
@@ -81,7 +88,7 @@ class _ProdutosPageState extends State<ProdutosPage> {
       body: StreamBuilder<List<Produto>>(
         stream: _bloc.listOut,
         builder: (context, snapshot) {
-          if (snapshot.hasError) return _erroScreen(snapshot.error);
+          if (snapshot.hasError) return _errorDialog(snapshot.error);
           if (!snapshot.hasData) return _loadingScreen();
 
           List<Produto> produtos = snapshot.data;
@@ -93,11 +100,20 @@ class _ProdutosPageState extends State<ProdutosPage> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          //tela de pedidos
+      floatingActionButton: StreamBuilder<List<Produto>>(
+        stream: _bloc.listOut,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return FloatingActionButton(
+              onPressed: () {
+                //tela de pedidos
+              },
+              child: Icon(Icons.add_shopping_cart),
+            );
+          } else {
+            return Container();
+          }
         },
-        child: Icon(Icons.add_shopping_cart),
       ),
     );
   }
