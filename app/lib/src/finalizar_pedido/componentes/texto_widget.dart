@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 class TextoWidget extends StatelessWidget {
   String texto;
   double fontSize;
-  Color color; 
-  
-  TextoWidget({this.texto, this.fontSize, this.color});
+  Color color;
+
+  TextoWidget({this.texto, this.fontSize, this.color}) {
+    fontSize = (fontSize == null) ? 30 : fontSize;
+    color = (color == null) ? Colors.white : color;
+  }
 
   @override
   Widget build(BuildContext context) {
-    fontSize = (fontSize == null)?30:fontSize;
-    color = (color == null)?Colors.white:color;
-
     return Container(
       margin: EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 5),
       child: Text(

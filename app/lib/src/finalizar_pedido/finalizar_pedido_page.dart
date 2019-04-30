@@ -1,9 +1,10 @@
 import 'package:app/src/carrinho/carrinho_bloc.dart';
+import 'package:app/src/di/di.dart';
 import 'package:app/src/finalizar_pedido/componentes/progressbar_widget.dart';
 import 'package:app/src/finalizar_pedido/componentes/texto_widget.dart';
 import 'package:app/src/finalizar_pedido/finalizar_pedido_bloc.dart';
 import 'package:app/src/produtos/produtos_page.dart';
-import 'package:bloc_pattern/bloc_pattern.dart';
+
 import 'package:flutter/material.dart';
 
 class FinalizarPedidoPage extends StatefulWidget {
@@ -12,12 +13,21 @@ class FinalizarPedidoPage extends StatefulWidget {
 }
 
 class _FinalizarPedidoPageState extends State<FinalizarPedidoPage> {
-  FinalizarPedidoBloc bloc;
+  final FinalizarPedidoBloc bloc = DI().getDependency<FinalizarPedidoBloc>();
+
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(Duration(seconds: 4)).then((_) {
+      bloc?.loadingEvent?.add(false);
+    });
+  }
 
   Widget _msgSucesso() {
     return GestureDetector(
       onTap: () {
-        BlocProviderList.of<CarrinhoBloc>(context).trucateList();
+        DI().getDependency<CarrinhoBloc>().trucateList();
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -44,17 +54,6 @@ class _FinalizarPedidoPageState extends State<FinalizarPedidoPage> {
             ),
           )),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    bloc = FinalizarPedidoBloc();
-
-    // --
-    Future.delayed(Duration(seconds: 4)).then((_) {
-      bloc?.loadingEvent?.add(false);
-    });
   }
 
   @override

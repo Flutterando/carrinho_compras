@@ -1,17 +1,17 @@
 import 'package:app/src/shared/models/produto.dart';
-import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:rxdart/rxdart.dart';
 
-class CarrinhoBloc extends BlocBase {
+class CarrinhoBloc {
   List<Produto> _listaProdutos;
 
-  trucateList(){
+  trucateList() {
     _listaProdutos.clear();
     _produtosCarrinhoController.add([]);
   }
 
   var _produtosCarrinhoController = BehaviorSubject.seeded(<Produto>[]);
-  Observable<List<Produto>> get produtosCarrinho => _produtosCarrinhoController.stream;
+  Observable<List<Produto>> get produtosCarrinho =>
+      _produtosCarrinhoController.stream;
 
   Observable<int> get totalCarrinho => _totalCarrinhoController.stream;
 
@@ -42,7 +42,6 @@ class CarrinhoBloc extends BlocBase {
         .listen((lista) => _totalCarrinhoController.add(lista.length));
   }
 
-  @override
   void dispose() {
     _produtosCarrinhoController.close();
     _totalCarrinhoController.close();

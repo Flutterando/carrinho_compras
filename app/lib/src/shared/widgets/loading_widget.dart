@@ -9,6 +9,7 @@ class LoadingWidget extends StatelessWidget {
     this.fullScreen: false,
     this.backgroundColor = Colors.black12,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     if (fullScreen)

@@ -1,8 +1,6 @@
-
 import 'package:rxdart/rxdart.dart';
 
 class FinalizarPedidoBloc {
-
   final loadingController = BehaviorSubject<bool>.seeded(true);
   Observable<bool> get loadingFlux => loadingController?.stream?.distinct();
   Sink<bool> get loadingEvent => loadingController?.sink;
@@ -10,5 +8,4 @@ class FinalizarPedidoBloc {
   void dispose() {
     loadingController.close();
   }
-
 }

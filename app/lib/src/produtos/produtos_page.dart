@@ -1,10 +1,9 @@
 import 'package:app/src/carrinho/carrinho_bloc.dart';
+import 'package:app/src/di/di.dart';
 import 'package:app/src/shared/models/produto.dart';
 import 'package:app/src/shared/widgets/loading_widget.dart';
-import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-
 import 'produtos_bloc.dart';
 import 'produto_view/produto_view_screen.dart';
 import '../carrinho/carrinho_page.dart';
@@ -15,19 +14,14 @@ class ProdutosPage extends StatefulWidget {
 }
 
 class _ProdutosPageState extends State<ProdutosPage> {
-  final _bloc = ProdutosBloc();
+  final _bloc = DI().getDependency<ProdutosBloc>();
 
-  CarrinhoBloc carrinhoBloc;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    carrinhoBloc = BlocProviderList.of<CarrinhoBloc>(context);
-  }
+  final _carrinhoBloc = DI().getDependency<CarrinhoBloc>();
 
   @override
   void dispose() {
     _bloc.dispose();
+    _carrinhoBloc.dispose();
     super.dispose();
   }
 
@@ -132,7 +126,7 @@ class _ProdutosPageState extends State<ProdutosPage> {
                 backgroundColor: Colors.redAccent,
                 maxRadius: 10,
                 child: StreamBuilder<int>(
-                    stream: carrinhoBloc.totalCarrinho,
+                    stream: _carrinhoBloc.totalCarrinho,
                     builder: (context, snapshot) {
                       return Text(
                         "${snapshot.data ?? 0}",

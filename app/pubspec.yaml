@@ -9,11 +9,11 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^0.1.2
-  bloc_pattern: ^1.5.2
   dio: ^2.1.2
   rxdart: ^0.21.0
   font_awesome_flutter: ^8.4.0
   animated_card: ^1.0.0+5
+  injector: any
 
 dev_dependencies:
   flutter_test:

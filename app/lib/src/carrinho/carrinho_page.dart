@@ -1,14 +1,12 @@
+import 'package:app/src/di/di.dart';
 import 'package:app/src/finalizar_pedido/finalizar_pedido_page.dart';
 import 'package:app/src/produtos/produto_view/produto_view_screen.dart';
 import 'package:app/src/shared/widgets/loading_widget.dart';
 import 'package:app/src/shared/helpers/mask.dart' as mask;
-import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_card/animated_card.dart';
-
 import 'package:app/src/shared/models/produto.dart';
-
 import 'carrinho_bloc.dart';
 
 class CarrinhoPage extends StatefulWidget {
@@ -17,7 +15,8 @@ class CarrinhoPage extends StatefulWidget {
 }
 
 class _CarrinhoPageState extends State<CarrinhoPage> {
-  CarrinhoBloc get bloc => BlocProviderList.of<CarrinhoBloc>(context);
+  var bloc = DI().getDependency<CarrinhoBloc>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

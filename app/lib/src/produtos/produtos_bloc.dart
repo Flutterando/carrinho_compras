@@ -1,10 +1,11 @@
 import 'package:app/src/shared/repositories/general_api.dart';
 import 'package:rxdart/rxdart.dart';
-
 import 'package:app/src/shared/models/produto.dart';
 
 class ProdutosBloc {
-  final GeneralApi api = GeneralApi();
+  final GeneralApi api;
+
+  ProdutosBloc(this.api);
 
   final BehaviorSubject _listController = BehaviorSubject.seeded(true);
   Observable<List<Produto>> get listOut =>

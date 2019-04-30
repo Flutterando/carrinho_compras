@@ -4,7 +4,8 @@ import 'package:app/src/shared/models/produto.dart';
 import 'package:dio/dio.dart';
 
 class GeneralApi {
-  Dio dio = Dio();
+  Dio dio;
+  GeneralApi(this.dio);
 
   Future<List<Produto>> getProducts() async {
     try {
