@@ -1,6 +1,6 @@
 import 'package:app/src/carrinho/carrinho_page.dart';
-import 'package:app/src/di/di.dart';
 import 'package:app/src/shared/models/produto.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -20,7 +20,7 @@ class _ProdutoViewScreenState extends State<ProdutoViewScreen> {
   final Produto produto;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  final carrinhoBloc = DI().getDependency<CarrinhoBloc>();
+  final carrinhoBloc = BlocProvider.injectBloc<CarrinhoBloc>();
 
   _ProdutoViewScreenState(this.produto);
   @override

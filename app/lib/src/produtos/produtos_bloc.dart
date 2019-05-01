@@ -1,8 +1,9 @@
 import 'package:app/src/shared/repositories/general_api.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:app/src/shared/models/produto.dart';
 
-class ProdutosBloc {
+class ProdutosBloc extends BlocBase {
   final GeneralApi api;
 
   ProdutosBloc(this.api);

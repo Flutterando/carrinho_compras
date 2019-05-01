@@ -1,7 +1,7 @@
 import 'package:app/src/carrinho/carrinho_bloc.dart';
-import 'package:app/src/di/di.dart';
 import 'package:app/src/shared/models/produto.dart';
 import 'package:app/src/shared/widgets/loading_widget.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'produtos_bloc.dart';
@@ -14,9 +14,8 @@ class ProdutosPage extends StatefulWidget {
 }
 
 class _ProdutosPageState extends State<ProdutosPage> {
-  final _bloc = DI().getDependency<ProdutosBloc>();
-
-  final _carrinhoBloc = DI().getDependency<CarrinhoBloc>();
+  final _bloc = BlocProvider.injectBloc<ProdutosBloc>();
+  final _carrinhoBloc = BlocProvider.injectBloc<CarrinhoBloc>();
 
   @override
   void dispose() {

@@ -1,7 +1,8 @@
 import 'package:app/src/shared/models/produto.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:rxdart/rxdart.dart';
 
-class CarrinhoBloc {
+class CarrinhoBloc extends BlocBase {
   List<Produto> _listaProdutos;
 
   trucateList() {
