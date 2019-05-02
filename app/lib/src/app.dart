@@ -21,15 +21,13 @@ class App extends StatelessWidget {
         home: ProdutosPage(),
       ),
       blocs: [
-        Bloc(
-            (inject) => ProdutosBloc(BlocProvider.getDependency<GeneralApi>())),
+        Bloc((inject) => ProdutosBloc(inject.get<GeneralApi>())),
         Bloc((inject) => CarrinhoBloc()),
         Bloc((inject) => FinalizarPedidoBloc()),
       ],
       dependencies: [
-        Dependency<Dio>((i) => Dio()),
-        Dependency<GeneralApi>(
-            (i) => GeneralApi(BlocProvider.getDependency<Dio>())),
+        Dependency<Dio>((inject) => Dio()),
+        Dependency<GeneralApi>((inject) => GeneralApi(inject.get<Dio>())),
       ],
     );
   }
