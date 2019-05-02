@@ -15,7 +15,7 @@ class CarrinhoPage extends StatefulWidget {
 }
 
 class _CarrinhoPageState extends State<CarrinhoPage> {
-  var bloc = BlocProvider.injectBloc<CarrinhoBloc>();
+  var bloc = BlocProvider.getBloc<CarrinhoBloc>();
 
   @override
   Widget build(BuildContext context) {

@@ -14,8 +14,8 @@ class ProdutosPage extends StatefulWidget {
 }
 
 class _ProdutosPageState extends State<ProdutosPage> {
-  final _bloc = BlocProvider.injectBloc<ProdutosBloc>();
-  final _carrinhoBloc = BlocProvider.injectBloc<CarrinhoBloc>();
+  final _bloc = BlocProvider.getBloc<ProdutosBloc>();
+  final _carrinhoBloc = BlocProvider.getBloc<CarrinhoBloc>();
 
   @override
   void dispose() {

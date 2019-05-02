@@ -12,7 +12,7 @@ class FinalizarPedidoPage extends StatefulWidget {
 }
 
 class _FinalizarPedidoPageState extends State<FinalizarPedidoPage> {
-  final bloc = BlocProvider.injectBloc<FinalizarPedidoBloc>();
+  final bloc = BlocProvider.getBloc<FinalizarPedidoBloc>();
 
   @override
   void initState() {
@@ -26,7 +26,7 @@ class _FinalizarPedidoPageState extends State<FinalizarPedidoPage> {
   Widget _msgSucesso() {
     return GestureDetector(
       onTap: () {
-        BlocProvider.injectBloc<CarrinhoBloc>().trucateList();
+        BlocProvider.getBloc<CarrinhoBloc>().trucateList();
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
