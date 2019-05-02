@@ -32,7 +32,7 @@ class _FinalizarPedidoPageState extends State<FinalizarPedidoPage> {
           MaterialPageRoute(
             builder: (context) => ProdutosPage(),
           ),
-          ModalRoute.withName(Navigator.defaultRouteName),
+          (_) => false,
         );
       },
       child: Container(

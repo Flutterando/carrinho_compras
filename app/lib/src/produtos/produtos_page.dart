@@ -14,17 +14,12 @@ class ProdutosPage extends StatefulWidget {
 }
 
 class _ProdutosPageState extends State<ProdutosPage> {
+  
   final _bloc = BlocProvider.getBloc<ProdutosBloc>();
   final _carrinhoBloc = BlocProvider.getBloc<CarrinhoBloc>();
-    final scaffoldKey = GlobalKey<ScaffoldState>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
-
-  @override
-  void dispose() {
-    _bloc.dispose();
-    _carrinhoBloc.dispose();
-    super.dispose();
-  }
+  
 
   String _limitText(String text) {
     return text.substring(0, 30) + "...";
