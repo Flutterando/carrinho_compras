@@ -16,6 +16,8 @@ class ProdutosPage extends StatefulWidget {
 class _ProdutosPageState extends State<ProdutosPage> {
   final _bloc = BlocProvider.getBloc<ProdutosBloc>();
   final _carrinhoBloc = BlocProvider.getBloc<CarrinhoBloc>();
+    final scaffoldKey = GlobalKey<ScaffoldState>();
+
 
   @override
   void dispose() {
@@ -30,13 +32,22 @@ class _ProdutosPageState extends State<ProdutosPage> {
 
   Widget _item(Produto produto) {
     return ListTile(
-      onTap: () {
-        Navigator.push(
+      onTap: () async {
+        var v = await Navigator.push(
           context,
           CupertinoPageRoute(builder: (context) {
             return ProdutoViewScreen(produto: produto);
           }),
         );
+
+        if(v != null){
+          scaffoldKey.currentState.showSnackBar(
+                SnackBar(
+                  content: Text("Item adicionado ao carrinho!"),
+                ),
+              );
+        }
+          
       },
       leading: Container(
           width: 40,
@@ -81,6 +92,7 @@ class _ProdutosPageState extends State<ProdutosPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         title: Text("Listagem de Produtos"),
       ),

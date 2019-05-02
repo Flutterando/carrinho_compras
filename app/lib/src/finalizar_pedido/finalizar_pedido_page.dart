@@ -27,11 +27,12 @@ class _FinalizarPedidoPageState extends State<FinalizarPedidoPage> {
     return GestureDetector(
       onTap: () {
         BlocProvider.getBloc<CarrinhoBloc>().trucateList();
-        Navigator.pushReplacement(
+        Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
             builder: (context) => ProdutosPage(),
           ),
+          ModalRoute.withName(Navigator.defaultRouteName),
         );
       },
       child: Container(

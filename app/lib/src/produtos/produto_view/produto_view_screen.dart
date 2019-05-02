@@ -18,7 +18,6 @@ class ProdutoViewScreen extends StatefulWidget {
 
 class _ProdutoViewScreenState extends State<ProdutoViewScreen> {
   final Produto produto;
-  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   final carrinhoBloc = BlocProvider.getBloc<CarrinhoBloc>();
 
@@ -28,30 +27,13 @@ class _ProdutoViewScreenState extends State<ProdutoViewScreen> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
-      key: scaffoldKey,
       appBar: AppBar(
         title: Text(produto.title),
         actions: <Widget>[
           IconButton(
-            onPressed: () {
+            onPressed: () async {
               carrinhoBloc.addItemCarrinho.add(widget.produto);
-              scaffoldKey.currentState.showSnackBar(
-                SnackBar(
-                  content: Text("Item adicionado ao carrinho!"),
-                  action: SnackBarAction(
-                    textColor: Colors.white,
-                    label: "Ver",
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                          builder: (context) => CarrinhoPage(),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              );
+              Navigator.pop(context, true);
             },
             icon: Icon(FontAwesomeIcons.check),
           )
