@@ -44,6 +44,7 @@ class CarrinhoBloc extends BlocBase {
   }
 
   void dispose() {
+    print("dispose");
     _produtosCarrinhoController.close();
     _totalCarrinhoController.close();
   }
