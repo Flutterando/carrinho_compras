@@ -6,7 +6,8 @@ class CarrinhoBloc extends BlocBase {
   List<Produto> _listaProdutos;
 
   var _produtosCarrinhoController = BehaviorSubject.seeded(<Produto>[]);
-  Observable<List<Produto>> get produtosCarrinho => _produtosCarrinhoController.stream;
+  Observable<List<Produto>> get produtosCarrinho =>
+      _produtosCarrinhoController.stream;
 
   Observable<int> get totalCarrinho => _totalCarrinhoController.stream;
 

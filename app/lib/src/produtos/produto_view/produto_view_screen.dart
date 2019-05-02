@@ -20,7 +20,7 @@ class _ProdutoViewScreenState extends State<ProdutoViewScreen> {
   final Produto produto;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  CarrinhoBloc get carrinhoBloc => BlocProviderList.of<CarrinhoBloc>(context);
+  CarrinhoBloc carrinhoBloc = BlocProvider.getBloc<CarrinhoBloc>();
 
   _ProdutoViewScreenState(this.produto);
   @override

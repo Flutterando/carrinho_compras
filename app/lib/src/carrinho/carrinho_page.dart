@@ -16,7 +16,7 @@ class CarrinhoPage extends StatefulWidget {
 }
 
 class _CarrinhoPageState extends State<CarrinhoPage> {
-  CarrinhoBloc get bloc => BlocProviderList.of<CarrinhoBloc>(context);
+  CarrinhoBloc get bloc => BlocProvider.getBloc<CarrinhoBloc>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +47,7 @@ class _CarrinhoPageState extends State<CarrinhoPage> {
                           child: Text("Finalizar compra"),
                           color: Theme.of(context).accentColor,
                           textColor: Colors.white,
-                          onPressed: (){
+                          onPressed: () {
                             //Navegar para tela de checkout
                           },
                         ),

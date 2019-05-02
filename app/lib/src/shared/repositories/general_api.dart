@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 import 'package:app/src/shared/models/produto.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:dio/dio.dart';
 
 class GeneralApi {
-  Dio dio = Dio();
+  Dio dio;
+  GeneralApi(this.dio);
 
   Future<List<Produto>> getProducts() async {
     try {
@@ -19,5 +21,10 @@ class GeneralApi {
     } catch (e) {
       throw "Erro desconhecido";
     }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
   }
 }

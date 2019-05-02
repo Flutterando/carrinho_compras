@@ -15,15 +15,8 @@ class ProdutosPage extends StatefulWidget {
 }
 
 class _ProdutosPageState extends State<ProdutosPage> {
-  final _bloc = ProdutosBloc();
-
-  CarrinhoBloc carrinhoBloc;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    carrinhoBloc = BlocProviderList.of<CarrinhoBloc>(context);
-  }
+  final _bloc = BlocProvider.getBloc<ProdutosBloc>();
+  final carrinhoBloc = BlocProvider.getBloc<CarrinhoBloc>();
 
   @override
   void dispose() {
