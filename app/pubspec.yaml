@@ -13,8 +13,8 @@ dependencies:
   rxdart: ^0.21.0
   font_awesome_flutter: ^8.4.0
   animated_card: ^1.0.0+5
-  injector: any
   bloc_pattern: ^2.1.0
+  rect_getter: ^0.0.1
 
 dev_dependencies:
   flutter_test:
