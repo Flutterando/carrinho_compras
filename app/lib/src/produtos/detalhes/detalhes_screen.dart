@@ -3,7 +3,6 @@ import 'package:app/src/shared/helpers/mask.dart' as mask;
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rect_getter/rect_getter.dart';
 
 import '../../carrinho/carrinho_bloc.dart';
@@ -45,9 +44,12 @@ class _DetalhesScreenState extends State<DetalhesScreen> {
                 padding: EdgeInsets.symmetric(vertical: 15),
                 child: AspectRatio(
                   aspectRatio: 1.5,
-                  child: Image.network(
-                    produto.image,
-                    fit: BoxFit.contain,
+                  child: Hero(
+                    tag: produto.id,
+                    child: Image.network(
+                      produto.image,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
               ),
