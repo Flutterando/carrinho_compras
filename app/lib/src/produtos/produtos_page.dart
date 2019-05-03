@@ -5,7 +5,7 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'produtos_bloc.dart';
-import 'produto_view/produto_view_screen.dart';
+import 'detalhes/detalhes_screen.dart';
 import '../carrinho/carrinho_page.dart';
 
 class ProdutosPage extends StatefulWidget {
@@ -31,7 +31,7 @@ class _ProdutosPageState extends State<ProdutosPage> {
         var v = await Navigator.push(
           context,
           CupertinoPageRoute(builder: (context) {
-            return ProdutoViewScreen(produto: produto);
+            return DetalhesScreen(produto: produto);
           }),
         );
 

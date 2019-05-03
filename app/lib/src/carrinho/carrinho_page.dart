@@ -1,5 +1,5 @@
 import 'package:app/src/finalizar_pedido/finalizar_pedido_page.dart';
-import 'package:app/src/produtos/produto_view/produto_view_screen.dart';
+import 'package:app/src/produtos/detalhes/detalhes_screen.dart';
 import 'package:app/src/shared/widgets/loading_widget.dart';
 import 'package:app/src/shared/helpers/mask.dart' as mask;
 import 'package:bloc_pattern/bloc_pattern.dart';
@@ -85,7 +85,7 @@ class _CarrinhoPageState extends State<CarrinhoPage> {
             Navigator.push(
               context,
               CupertinoPageRoute(builder: (context) {
-                return ProdutoViewScreen(produto: model);
+                return DetalhesScreen(produto: model);
               }),
             );
           },

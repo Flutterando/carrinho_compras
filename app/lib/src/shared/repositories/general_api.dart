@@ -10,10 +10,10 @@ class GeneralApi {
   Future<List<Produto>> getProducts() async {
     try {
       Response response = await dio.get(
-          "https://raw.githubusercontent.com/Flutterando/carrinho_compras/master/backend/products.json");
-      var data = jsonDecode(response.data);
-      List<Produto> produtos =
-          (data as List).map((v) => Produto.fromJson(v)).toList();
+        "https://raw.githubusercontent.com/Flutterando/carrinho_compras/master/backend/products.json",
+      );
+      List data = jsonDecode(response.data);
+      List<Produto> produtos = data.map((v) => Produto.fromJson(v)).toList();
       return produtos;
     } on DioError catch (e) {
       throw "Erro de internet";
