@@ -15,6 +15,7 @@ dependencies:
   animated_card: ^1.0.0+5
   bloc_pattern: ^2.1.0
   rect_getter: ^0.0.1
+  shared_preferences: ^0.5.2
 
 dev_dependencies:
   flutter_test:
